@@ -14,7 +14,7 @@ const babelRule = {
 
 const cssRule = {
   test: /\.css$/i,
-  use: ['css-loader', 'style-loader']
+  use: ['style-loader', 'css-loader']
 }
 
 const fileRule = {
