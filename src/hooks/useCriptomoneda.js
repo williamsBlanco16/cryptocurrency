@@ -20,25 +20,25 @@ const Select = styled.select`
   border: none;
   font-size: 1.2rem;
 `;
-export default function useMoneda(label, stateInicial, opciones) {
-  const [state, setState] = useState(stateInicial);
+export default function useCriptomoneda(label, stateInicial, opciones) {
+  const [stateCripto, setStateCripto] = useState(stateInicial);
 
-  const SelectLayout = () => (
+  const SelectCripto = () => (
     <Fragment>
       <Label>{label}</Label>
       <Select
-        onChange={ e => setState(e.target.value)}
-        value={state}
+        onChange={ e => setStateCripto(e.target.value)}
+        value={stateCripto}
       >
         <option value="">--Seleccione</option>
         { 
           opciones.map( opcion =>(
-            <option key={opcion.cod} value={opcion.cod}>{opcion.nombre}</option>
+            <option key={opcion.CoinInfo.Id} value={opcion.CoinInfo.Name}>{opcion.CoinInfo.FullName}</option>
           ))
         }
       </Select>
     </Fragment>
   )
 
-  return [SelectLayout, state, setState]
+  return [SelectCripto, stateCripto, setStateCripto]
 }
