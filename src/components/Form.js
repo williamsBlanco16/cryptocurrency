@@ -34,16 +34,20 @@ const Form = ({setMoneda, setCriptomoneda}) => {
   ]
   const [cripto, setCripto] = useState([]);
   const [error, setError] = useState(false)
+  const [loading, setLoading] = useState(false);
   const [Select, stateMoneda, setStateMoneda] = useMoneda('Elige Tu Moneda', '', COIN)
   const [SelectCripto, stateCripto, setStateCripto] = useCriptomoneda('Elige Tu Criptomoneda','',cripto)
 
 
   const URL = 'https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=USD'
   useEffect(() => {
+    setLoading(true)
     const requestAPI = async () => {
       const response = await axios.get(URL)
+      setLoading(false)
       setCripto(response.data.Data)
     }
+    setLoading(true)
     requestAPI()
   }, []);
 

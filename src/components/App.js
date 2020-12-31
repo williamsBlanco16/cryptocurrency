@@ -6,6 +6,7 @@ import '../index.css'
 
 import Form from './Form'
 import Quotation from './Quotation';
+import Spinner from './Spinner';
 
 const Container = styled.div`
   max-width: 900px;
@@ -44,6 +45,7 @@ const App = () => {
   const [moneda, setMoneda] = useState("");
   const [criptomoneda, setCriptomoneda] = useState("")
   const [result, setResult] = useState({});
+  const [loading, setLoading] = useState(false);
   
   useEffect(() => {
     if(!moneda || !criptomoneda) return
@@ -51,10 +53,14 @@ const App = () => {
     const requestAPI = async () => {
       const response = await axios.get(url)
       console.log(response);
+      setLoading(false)
       setResult(response.data.DISPLAY[criptomoneda][moneda])
     }
+    setLoading(true)
     requestAPI()
   },[moneda,criptomoneda])
+
+  const component = loading ? <Spinner/> : <Quotation result={result}/>
 
   return (
     <Container>
@@ -70,7 +76,7 @@ const App = () => {
           setMoneda={setMoneda}
           setCriptomoneda={setCriptomoneda}
         />
-        <Quotation result={result}/>
+        {component}
       </div>
     </Container>
   );
